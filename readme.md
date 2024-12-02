@@ -69,7 +69,7 @@ docker push -t localhost:5000/collections-api:1
 ```
 
 
-### 3. Aplicar Archivos YAML en Kubernetes
+### 4. Aplicar Archivos YAML en Kubernetes
 
 Asegúrate de que los archivos YAML están en las carpetas correspondientes:
 
