@@ -50,6 +50,25 @@ helm install mongodb bitnami/mongodb --namespace done-dbs
 helm install postgresql bitnami/postgresql --namespace done-dbs
 ```
 
+### 3. Construir los builds y hacer push
+
+Terminal 1
+```
+docker run --rm -it --network=host alpine ash -c "apk add socat && socat TCP-LISTEN:5000,reuseaddr,fork TCP:host.docker.internal:5000"
+kubectl port-forward --namespace kube-system service/registry 5000:80
+```
+
+Terminal 2
+```
+cd SoapApi
+docker build -t localhost:5000/tasks-api:1
+docker push -t localhost:5000/tasks-api:1
+cd RestApi
+docker build -t localhost:5000/collections-api:1
+docker push -t localhost:5000/collections-api:1
+```
+
+
 ### 3. Aplicar Archivos YAML en Kubernetes
 
 Asegúrate de que los archivos YAML están en las carpetas correspondientes:
