@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: collections-api
+  namespace: done-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collections-api
+  template:
+    metadata:
+      labels:
+        app: collections-api
+    spec:
+      containers:
+        - name: collections-api
+          image: localhost:5000/collections-api:14
+          env:
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: collections-api-secrets
+                  key: DB_URL
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: collections-api-secrets
+                  key: DB_NAME
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: collections-api-secrets
+                  key: REDIS_URL
+            - name: TASKS_API_URL
+              value: "http://tasks-api-svc.done-api.svc.cluster.local:4000/TaskService.svc"
+          ports:
+            - containerPort: 3000
