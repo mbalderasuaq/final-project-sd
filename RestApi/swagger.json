@@ -1,0 +1,365 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Done API Documentation",
+      "version": "1.0.0",
+      "description": "API for managing collection"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Collection",
+        "description": "Endpoints for managing collection"
+      }
+    ],
+    "paths": {
+      "/collection": {
+        "get": {
+          "summary": "Get all collection",
+          "tags": ["collection"],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "type": "integer"
+              },
+              "description": "Limit for pagination"
+            },
+            {
+              "in": "query",
+              "name": "offset",
+              "schema": {
+                "type": "integer"
+              },
+              "description": "Offset for pagination"
+            },
+            {
+              "in": "query",
+              "name": "title",
+              "schema": {
+                "type": "string"
+              },
+              "description": "Collection title"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of collection",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/PaginatedCollection"
+                    }
+                  },
+                  "pagination": {
+                    "type": "object",
+                    "total": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new collection",
+          "tags": ["collection"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/collection"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "Collection created"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "409": {
+              "description": "Collection already exists"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/collection/:id": {
+        "get": {
+          "summary": "Get a collection by ID",
+          "tags": ["collection"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "Collection ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Collection found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/collection"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Collection not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a collection by ID",
+          "tags": ["collection"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "Collection ID"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "description": "Collection title"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Collection description"
+                    },
+                    "status": {
+                      "type": "boolean",
+                      "description": "Collection status"
+                    },
+                    "dueDate": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Collection due date"
+                    }
+                  }
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "204": {
+              "description": "Collection updated"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Collection not found"
+            },
+            "409": {
+              "description": "Collection already exists"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        },
+        "patch": {
+          "summary": "Update a collection status by ID",
+          "tags": ["collection"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "Collection ID"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "description": "Collection title"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Collection description"
+                    },
+                    "status": {
+                      "type": "boolean",
+                      "description": "Collection status"
+                    },
+                    "dueDate": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Collection due date"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "204": {
+              "description": "Collection status updated"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "404": {
+              "description": "Collection not found"
+            },
+            "409": {
+              "description": "Collection already exists"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a collection by ID",
+          "tags": ["Collection"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "Collection ID"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Collection deleted"
+            },
+            "404": {
+              "description": "Collection not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "collection": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Collection ID"
+            },
+            "title": {
+              "type": "string",
+              "description": "Collection title"
+            },
+            "description": {
+              "type": "string",
+              "description": "Collection description"
+            },
+            "status": {
+              "type": "boolean",
+              "description": "Collection status"
+            },
+            "dueDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Collection due date"
+            }
+          }
+        },
+        "Pagination": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer",
+              "description": "Total number of elements"
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Limit for the pagination"
+            },
+            "offset": {
+              "type": "integer",
+              "description": "Offset for the pagination"
+            },
+            "nextPage": {
+              "type": "string",
+              "description": "Next page URL"
+            },
+            "prevPage": {
+              "type": "string",
+              "description": "Previous page URL"
+            }
+          }
+        },
+        "PaginatedCollection": {
+          "type": "object",
+          "properties": {
+            "collection": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/collection"
+              }
+            },
+            "pagination": {
+              "$ref": "#/components/schemas/Pagination"
+            }
+          }
+        }
+      }
+    }
+  }
