@@ -88,7 +88,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/collection"
+                  "$ref": "#/components/schemas/collectionRequest"
                 }
               }
             },
@@ -110,7 +110,7 @@
           }
         }
       },
-      "/collection/:id": {
+      "/collection/{id}": {
         "get": {
           "summary": "Get a collection by ID",
           "tags": ["collection"],
@@ -172,14 +172,9 @@
                       "type": "string",
                       "description": "Collection description"
                     },
-                    "status": {
-                      "type": "boolean",
-                      "description": "Collection status"
-                    },
-                    "dueDate": {
-                      "type": "string",
-                      "format": "date-time",
-                      "description": "Collection due date"
+                    "tasks": {
+                      "type": "array",
+                      "description": "Collection tasks"
                     }
                   }
                 }
@@ -233,14 +228,9 @@
                       "type": "string",
                       "description": "Collection description"
                     },
-                    "status": {
-                      "type": "boolean",
-                      "description": "Collection status"
-                    },
-                    "dueDate": {
-                      "type": "string",
-                      "format": "date-time",
-                      "description": "Collection due date"
+                    "tasks": {
+                      "type": "array",
+                      "description": "Collection tasks"
                     }
                   }
                 }
@@ -310,14 +300,26 @@
               "type": "string",
               "description": "Collection description"
             },
-            "status": {
-              "type": "boolean",
-              "description": "Collection status"
-            },
-            "dueDate": {
+            "tasks": {
+              "type": "array",
+              "description": "Collection tasks"
+            }
+          }
+        },
+        "collectionRequest": {
+          "type": "object",
+          "properties": {
+            "title": {
               "type": "string",
-              "format": "date-time",
-              "description": "Collection due date"
+              "description": "Collection title"
+            },
+            "description": {
+              "type": "string",
+              "description": "Collection description"
+            },
+            "tasks": {
+              "type": "array",
+              "description": "Collection tasks"
             }
           }
         },

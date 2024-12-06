@@ -1,5 +1,5 @@
 export interface CollectionEntity {
-    id: string;
+    _id: string;
     title: string;
     description: string;
     tasks: string[];

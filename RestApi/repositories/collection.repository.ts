@@ -14,7 +14,7 @@ export class CollectionRepository implements CollectionRepositoryInterface {
     }
 
     async getByIdAsync(id: string): Promise<CollectionModel | null> {
-        const collection = await this.collections.findOne({ id: id });
+        const collection = await this.collections.findOne({ _id: id });
 
         if (!collection) {
             return null;
@@ -49,7 +49,7 @@ export class CollectionRepository implements CollectionRepositoryInterface {
 
     async createAsync(title: string, description: string, tasks: string[]): Promise<CollectionModel> {
         const collection: CollectionEntity = {
-            id: crypto.randomUUID(),
+            _id: crypto.randomUUID(),
             title: title,
             description: description,
             tasks: tasks
@@ -78,10 +78,10 @@ export class CollectionRepository implements CollectionRepositoryInterface {
             updateCollection.tasks = tasks;
         }
 
-        await this.collections.updateOne({ id: id }, { $set: updateCollection });
+        await this.collections.updateOne({ _id: id }, { $set: updateCollection });
     }
 
     async deleteByIdAsync(id: string): Promise<void> {
-        await this.collections.deleteOne({ id: id });
+        await this.collections.deleteOne({ _id: id });
     }
 }
