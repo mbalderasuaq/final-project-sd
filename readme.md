@@ -69,7 +69,7 @@ kubectl port-forward -n done-dbs <el-nombre-de-tu-pod-de-mongo> 27017:27017
 
 Conectarse a la base de datos y crear la tablas tasks
 ```sql
-CREATE TABLE Tasks(
+CREATE TABLE tasks(
     id UUID PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
