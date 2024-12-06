@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: collections-api
-          image: localhost:5000/collections-api:14
+          image: localhost:5000/collections-api:1
           env:
             - name: DB_URL
               valueFrom:

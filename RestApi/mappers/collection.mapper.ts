@@ -3,7 +3,7 @@ import type { CollectionModel}  from "../models/collection.model";
 
 export function CollectionEntityToModel(taskEntity: CollectionEntity): CollectionModel {
     return {
-        id: taskEntity.id,
+        id: taskEntity._id,
         title: taskEntity.title,
         description: taskEntity.description,
         tasks: taskEntity.tasks

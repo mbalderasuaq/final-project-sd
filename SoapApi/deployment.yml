@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: tasks-api
-          image: localhost:5000/tasks-api:6
+          image: localhost:5000/tasks-api:1
           env:
             - name: ConnectionStrings__DefaultConnection
               valueFrom:
